@@ -1,5 +1,4 @@
 import tetris.gui.ActionEvent;
-import tetris.gui.Block;
 import tetris.gui.GUI;
 
 public class Game {
@@ -7,7 +6,7 @@ public class Game {
     private final GUI gui;
     private final int width;
     private final int height;
-    private Block block;
+    private Figure figure;
 
     public Game(GUI gui, int width, int height) {
         this.gui = gui;
@@ -16,32 +15,43 @@ public class Game {
     }
 
     public void start() {
-        createBlock();
+        createFigure();
         while(true) {
             handleEvent(gui.waitEvent());
         }
     }
 
-    private void createBlock() {
-        this.block = new Block(width / 2, height - 1, 5);
-        gui.drawBlock(this.block);
+    private void createFigure() {
+        this.figure = new Figure(1, null);
+        gui.drawBlocks(this.figure.getBlocks());
     }
 
     private void handleEvent(ActionEvent event) {
-        // TODO: rewrite to switch (new switch?)
-        if (event.equals(ActionEvent.MOVE_LEFT) && block.x > 0)
-            block.x--;
-        if (event.equals(ActionEvent.MOVE_RIGHT) && block.x < this.width - 1)
-            block.x++;
-        if (event.equals(ActionEvent.MOVE_DOWN) && block.y > 0)
-            block.y--;
-        if (event.equals(ActionEvent.ROTATE_LEFT) && block.y < this.height - 1)
-            block.y++;
+        // TODO : add border collision
+        switch (event) {
+            case MOVE_LEFT:
+                figure.move(Direction.LEFT);
+                break;
+            case MOVE_RIGHT:
+                figure.move(Direction.RIGHT);
+                break;
+            case MOVE_DOWN:
+                figure.move(Direction.DOWN);
+                break;
+            case ROTATE_LEFT:
+                figure.rotate(Direction.LEFT);
+                break;
+            case ROTATE_RIGHT:
+                figure.rotate(Direction.RIGHT);
+                break;
+            default:
+                break;
+        }
         updateGUI();
     }
 
     private void updateGUI() {
         gui.clear();
-        gui.drawBlock(this.block);
+        gui.drawBlocks(this.figure.getBlocks());
     }
 }
