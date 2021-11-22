@@ -37,7 +37,7 @@ public class FigureI extends Figure {
                 else if (block4.y > centerBlock.y) moveBlockTo(block4, centerBlock.x - 2, centerBlock.y); // if under center
                 break;
             case RIGHT:
-                // coming soon
+                // coming soon, just copy paste left case and reverse +-
                 break;
             default:
                 break;
