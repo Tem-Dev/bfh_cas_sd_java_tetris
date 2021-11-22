@@ -1,3 +1,5 @@
+package tetris;
+
 import tetris.gui.GUI;
 
 public class Tetris {
@@ -19,5 +21,13 @@ public class Tetris {
         GUI gui = new GUI(width, height);
         Game game = new Game(gui, width, height);
         game.start();
+    }
+
+    public static int getDefaultWidth() {
+        return DEFAULT_WIDTH;
+    }
+
+    public static int getDefaultHeight() {
+        return DEFAULT_HEIGHT;
     }
 }

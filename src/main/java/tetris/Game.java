@@ -1,3 +1,8 @@
+package tetris;
+
+import tetris.figures.Direction;
+import tetris.figures.Figure;
+import tetris.figures.FigureI;
 import tetris.gui.ActionEvent;
 import tetris.gui.GUI;
 
@@ -22,7 +27,7 @@ public class Game {
     }
 
     private void createFigure() {
-        this.figure = new Figure(1, null);
+        this.figure = new FigureI();
         gui.drawBlocks(this.figure.getBlocks());
     }
 
