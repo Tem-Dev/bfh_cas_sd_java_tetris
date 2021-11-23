@@ -1,5 +1,6 @@
 package tetris.figures;
 
+import tetris.Direction;
 import tetris.gui.Block;
 
 public class OFigure extends Figure {

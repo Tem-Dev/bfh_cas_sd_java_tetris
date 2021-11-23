@@ -1,5 +1,6 @@
 package tetris.figures;
 
+import tetris.Direction;
 import tetris.Tetris;
 import tetris.gui.Block;
 

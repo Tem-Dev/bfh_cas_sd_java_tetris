@@ -1,4 +1,4 @@
-package tetris.figures;
+package tetris;
 
 public enum Direction {
     LEFT,
