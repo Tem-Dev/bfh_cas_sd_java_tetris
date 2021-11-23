@@ -5,7 +5,11 @@ import tetris.figures.*;
 import tetris.gui.ActionEvent;
 import tetris.gui.GUI;
 
+import java.util.Random;
+
 public class Game {
+
+    private Random random = new Random();
 
     private final GUI gui;
     private final int width;
@@ -26,7 +30,16 @@ public class Game {
     }
 
     private void createFigure() {
-        this.figure = new IFigure();
+        switch (random.nextInt(7)) {
+            case 0: this.figure = new IFigure(); break;
+            case 1: this.figure = new JFigure(); break;
+            case 2: this.figure = new LFigure(); break;
+            case 3: this.figure = new OFigure(); break;
+            case 4: this.figure = new SFigure(); break;
+            case 5: this.figure = new TFigure(); break;
+            case 6: this.figure = new ZFigure(); break;
+            default: break;
+        }
         gui.drawBlocks(this.figure.getBlocks());
     }
 
