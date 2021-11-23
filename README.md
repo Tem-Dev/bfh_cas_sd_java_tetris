@@ -7,5 +7,5 @@
 
 
 * [Up Arrow] - rotate left
-* [???] - rotate right
+* [Shift + Up Arrow] - rotate right
 
