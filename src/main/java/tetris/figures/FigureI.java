@@ -8,7 +8,7 @@ public class FigureI extends Figure {
 
     public FigureI() {
         this.color = 5;
-        centerBlock = new Block(centerBlockX, centerBlockY, color);
+        centerBlock = new Block(centerBlockX, centerBlockY, 1);
         block2 = new Block(centerBlockX - 1, centerBlockY, color);
         block3 = new Block(centerBlockX + 1, centerBlockY, color);
         block4 = new Block(centerBlockX + 2, centerBlockY, color);
@@ -21,27 +21,38 @@ public class FigureI extends Figure {
         // TODO : what if i rotate a block out of playfield?
         switch (direction) {
             case LEFT:
-                if (block2.x < centerBlock.x) moveBlockTo(block2, centerBlock.x, centerBlock.y - 1); // if left of center
-                else if (block2.y < centerBlock.y) moveBlockTo(block2, centerBlock.x + 1, centerBlock.y); // if over center
-                else if (block2.x > centerBlock.x) moveBlockTo(block2, centerBlock.x, centerBlock.y + 1); // if right of center
-                else if (block2.y > centerBlock.y) moveBlockTo(block2, centerBlock.x - 1, centerBlock.y); // if under center
-
-                if (block3.x < centerBlock.x) moveBlockTo(block3, centerBlock.x, centerBlock.y - 1); // if left of center
-                else if (block3.y < centerBlock.y) moveBlockTo(block3, centerBlock.x + 1, centerBlock.y); // if over center
-                else if (block3.x > centerBlock.x) moveBlockTo(block3, centerBlock.x, centerBlock.y + 1); // if right of center
-                else if (block3.y > centerBlock.y) moveBlockTo(block3, centerBlock.x - 1, centerBlock.y); // if under center
-
-                if (block4.x < centerBlock.x) moveBlockTo(block4, centerBlock.x, centerBlock.y - 2); // if left of center
-                else if (block4.y < centerBlock.y) moveBlockTo(block4, centerBlock.x + 2, centerBlock.y); // if over center
-                else if (block4.x > centerBlock.x) moveBlockTo(block4, centerBlock.x, centerBlock.y + 2); // if right of center
-                else if (block4.y > centerBlock.y) moveBlockTo(block4, centerBlock.x - 2, centerBlock.y); // if under center
+                for (Block block : this.getBlocks()) rotateBlockLeft(block);
                 break;
             case RIGHT:
-                // coming soon, just copy paste left case and reverse +-
+                for (Block block : this.getBlocks()) rotateBlockRight(block);
                 break;
             default:
                 break;
         }
+    }
+
+    private void rotateBlockLeft(Block block) {
+        int move;
+        if (block.x == centerBlock.x) {
+            move = centerBlock.y - block.y;
+            block.y += move;
+        } else {
+            move = centerBlock.x - block.x;
+            block.y += move * -1;
+        }
+        block.x += move;
+    }
+
+    private void rotateBlockRight(Block block) {
+        int move;
+        if (block.x == centerBlock.x) {
+            move = centerBlock.y - block.y;
+            block.x += move * -1;
+        } else {
+            move = centerBlock.x - block.x;
+            block.x += move;
+        }
+        block.y += move;
     }
 
     private void moveBlockTo(Block block, int x, int y) {
