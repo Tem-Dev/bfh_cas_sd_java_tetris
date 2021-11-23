@@ -19,31 +19,19 @@ public abstract class Figure {
 
     public void move(Direction direction) {
         switch (direction) {
-            case LEFT:
-                for (Block b : blocks) b.x--;
-                break;
-            case RIGHT:
-                for (Block b : blocks) b.x++;
-                break;
-            case DOWN:
-                for (Block b : blocks) b.y--;
-                break;
-            default:
-                break;
+            case LEFT: for (Block b : blocks) b.x--; break;
+            case RIGHT: for (Block b : blocks) b.x++; break;
+            case DOWN: for (Block b : blocks) b.y--; break;
+            default: break;
         }
     }
 
     public void rotate(Direction direction)  {
         // TODO : what if i rotate a block out of playfield or into other blocks?
         switch (direction) {
-            case LEFT:
-                for (Block block : this.getBlocks()) rotateBlockLeft(block);
-                break;
-            case RIGHT:
-                for (Block block : this.getBlocks()) rotateBlockRight(block);
-                break;
-            default:
-                break;
+            case LEFT: for (Block block : this.getBlocks()) rotateBlockLeft(block); break;
+            case RIGHT: for (Block block : this.getBlocks()) rotateBlockRight(block); break;
+            default: break;
         }
     }
 

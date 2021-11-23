@@ -46,23 +46,12 @@ public class Game {
     private void handleEvent(ActionEvent event) {
         // TODO : add border collision
         switch (event) {
-            case MOVE_LEFT:
-                figure.move(Direction.LEFT);
-                break;
-            case MOVE_RIGHT:
-                figure.move(Direction.RIGHT);
-                break;
-            case MOVE_DOWN:
-                figure.move(Direction.DOWN);
-                break;
-            case ROTATE_LEFT:
-                figure.rotate(Direction.LEFT);
-                break;
-            case ROTATE_RIGHT:
-                figure.rotate(Direction.RIGHT);
-                break;
-            default:
-                break;
+            case MOVE_LEFT: figure.move(Direction.LEFT); break;
+            case MOVE_RIGHT: figure.move(Direction.RIGHT); break;
+            case MOVE_DOWN: figure.move(Direction.DOWN); break;
+            case ROTATE_LEFT: figure.rotate(Direction.LEFT); break;
+            case ROTATE_RIGHT: figure.rotate(Direction.RIGHT); break;
+            default: break;
         }
         updateGUI();
     }
