@@ -9,6 +9,7 @@ public abstract class Figure {
     protected int centerBlockX;
     protected int centerBlockY;
     protected Block[] blocks;
+    protected Block centerBlock;
 
     public Figure() {
         this.centerBlockX = Tetris.getDefaultWidth() / 2 - 1;
@@ -31,7 +32,55 @@ public abstract class Figure {
         }
     }
 
-    public abstract void rotate(Direction direction);
+    public void rotate(Direction direction)  {
+        // TODO : what if i rotate a block out of playfield?
+        switch (direction) {
+            case LEFT:
+                for (Block block : this.getBlocks()) rotateBlockLeft(block);
+                break;
+            case RIGHT:
+                for (Block block : this.getBlocks()) rotateBlockRight(block);
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected void rotateBlockLeft(Block block) {
+        int move = 0;
+        if (block.x == centerBlock.x) {
+            move = centerBlock.y - block.y;
+            block.y += move;
+        } else if (block.y == centerBlock.y) {
+            move = centerBlock.x - block.x;
+            block.y += move * -1;
+        } else {
+            if ((block.x > centerBlock.x && block.y > centerBlock.y) || (block.x < centerBlock.x && block.y < centerBlock.y)) {
+                move = (centerBlock.x - block.x) * 2;
+            } else {
+                block.y += (centerBlock.y - block.y) * 2;
+            }
+        }
+        block.x += move;
+    }
+
+    protected void rotateBlockRight(Block block) {
+        int move = 0;
+        if (block.x == centerBlock.x) {
+            move = centerBlock.y - block.y;
+            block.x += move * -1;
+        } else if (block.y == centerBlock.y) {
+            move = centerBlock.x - block.x;
+            block.x += move;
+        } else {
+            if ((block.x > centerBlock.x && block.y > centerBlock.y) || (block.x < centerBlock.x && block.y < centerBlock.y)) {
+                move = (centerBlock.x - block.x) * 2;
+            } else {
+                block.x += (centerBlock.y - block.y) * -2;
+            }
+        }
+        block.y += move;
+    }
 
     public Block[] getBlocks() {
         return blocks;
