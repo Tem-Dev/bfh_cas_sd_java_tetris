@@ -33,7 +33,7 @@ public abstract class Figure {
     }
 
     public void rotate(Direction direction)  {
-        // TODO : what if i rotate a block out of playfield?
+        // TODO : what if i rotate a block out of playfield or into other blocks?
         switch (direction) {
             case LEFT:
                 for (Block block : this.getBlocks()) rotateBlockLeft(block);
