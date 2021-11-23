@@ -54,9 +54,4 @@ public class FigureI extends Figure {
         }
         block.y += move;
     }
-
-    private void moveBlockTo(Block block, int x, int y) {
-        block.x = x;
-        block.y = y;
-    }
 }

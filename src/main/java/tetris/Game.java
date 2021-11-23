@@ -1,8 +1,7 @@
 package tetris;
 
 import tetris.figures.Direction;
-import tetris.figures.Figure;
-import tetris.figures.FigureI;
+import tetris.figures.*;
 import tetris.gui.ActionEvent;
 import tetris.gui.GUI;
 
