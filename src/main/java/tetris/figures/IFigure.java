@@ -2,11 +2,11 @@ package tetris.figures;
 
 import tetris.gui.Block;
 
-public class FigureI extends Figure {
+public class IFigure extends Figure {
 
     Block block2, block3, block4;
 
-    public FigureI() {
+    public IFigure() {
         this.color = 5;
         centerBlock = new Block(centerBlockX, centerBlockY, color);
         block2 = new Block(centerBlockX - 1, centerBlockY, color);

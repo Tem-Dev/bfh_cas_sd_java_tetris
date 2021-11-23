@@ -26,7 +26,7 @@ public class Game {
     }
 
     private void createFigure() {
-        this.figure = new FigureI();
+        this.figure = new IFigure();
         gui.drawBlocks(this.figure.getBlocks());
     }
 
