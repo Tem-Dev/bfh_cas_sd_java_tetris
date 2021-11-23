@@ -4,8 +4,6 @@ import tetris.gui.Block;
 
 public class TFigure extends Figure {
 
-    Block block2, block3, block4;
-
     public TFigure() {
         this.color = 7;
         centerBlock = new Block(centerBlockX, centerBlockY, color);

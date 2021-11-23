@@ -10,6 +10,7 @@ public abstract class Figure {
     protected int centerBlockY;
     protected Block[] blocks;
     protected Block centerBlock;
+    protected Block block2, block3, block4;
 
     public Figure() {
         this.centerBlockX = Tetris.getDefaultWidth() / 2 - 1;

@@ -4,8 +4,6 @@ import tetris.gui.Block;
 
 public class JFigure extends Figure {
 
-    Block block2, block3, block4;
-
     public JFigure() {
         this.color = 4;
         centerBlock = new Block(centerBlockX, centerBlockY, color);
