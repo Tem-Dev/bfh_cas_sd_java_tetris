@@ -2,6 +2,7 @@ package tetris;
 
 import tetris.figures.*;
 import tetris.gui.ActionHandler;
+import tetris.gui.Block;
 import tetris.gui.GUI;
 
 import java.util.Random;
@@ -38,9 +39,38 @@ public class Game {
         gui.drawBlocks(this.figure.getBlocks());
     }
 
+    private void landFigure(Figure figure) {
+        field.addBlocks(figure.getBlocks());
+    }
+
+    private void checkDoGameOver() {
+        if (isGameOver()) stop();
+    }
+
+    private boolean isGameOver() {
+        for (Block figureBlock : figure.getBlocks()) {
+            if (field.detectCollisionDirection(figure) == Direction.DOWN && figureBlock.y == field.getHeight() - 1) return true;
+        }
+        return false;
+    }
+
+    private void stop() {
+        figure = null;
+        gui.setActionHandler(null);
+        updateGUI();
+    }
+
     private void updateGUI() {
         gui.clear();
-        gui.drawBlocks(this.figure.getBlocks());
+        if (figure != null) gui.drawBlocks(this.figure.getBlocks());
+        if (field != null) gui.drawBlocks(this.field.getBlockList());
+    }
+
+    // think of better method name
+    private void betweenTurns() {
+        landFigure(figure);
+        createFigure();
+        checkDoGameOver();
     }
 
     private class FigureController implements ActionHandler {
@@ -53,6 +83,7 @@ public class Game {
                 updateGUI();
             } catch (CollisionException e) {
                 figure.move(Direction.UP);
+                betweenTurns();
             }
         }
 
@@ -102,9 +133,16 @@ public class Game {
 
         @Override
         public void drop() {
-            while (field.detectCollisionDirection(figure) != Direction.DOWN) {
-                figure.move(Direction.DOWN);
-                updateGUI();
+            try {
+                while (true) {
+                    // uses exception handling in logic because the exercise made me implement it that way
+                    figure.move(Direction.DOWN);
+                    field.detectCollision(figure);
+                    updateGUI();
+                }
+            } catch (CollisionException e) {
+                figure.move(Direction.UP);
+                betweenTurns();
             }
         }
     }

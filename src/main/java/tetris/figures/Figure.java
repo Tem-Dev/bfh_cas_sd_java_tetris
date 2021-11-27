@@ -15,7 +15,7 @@ public abstract class Figure {
 
     public Figure() {
         this.centerBlockX = Tetris.getDefaultWidth() / 2 - 1;
-        this.centerBlockY = Tetris.getDefaultHeight() - 1;
+        this.centerBlockY = Tetris.getDefaultHeight() - 2;
     }
 
     public void move(Direction direction) {
