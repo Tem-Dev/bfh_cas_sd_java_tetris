@@ -21,6 +21,16 @@ public class Field {
         }
     }
 
+    public Direction detectCollisionDirection(Figure figure) {
+        for (Block block : figure.getBlocks()) {
+            if (block.x < 0 ) return Direction.LEFT;
+            if (block.x >= width) return Direction.RIGHT;
+            if (block.y <= 0) return Direction.DOWN;
+            if (block.y >= height) return Direction.UP;
+        }
+        return null;
+    }
+
     public int getWidth() {
         return width;
     }
