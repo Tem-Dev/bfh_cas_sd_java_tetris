@@ -7,4 +7,4 @@
 * [Right Arrow] - move right
 * [Up Arrow] - rotate left
 * [Shift + Up Arrow] - rotate right
-
+* [Space] - drop
