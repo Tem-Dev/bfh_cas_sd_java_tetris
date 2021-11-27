@@ -102,15 +102,9 @@ public class Game {
 
         @Override
         public void drop() {
-            try {
-                while (true) {
-                    // uses exception handling in logic because the exercise made me implement it that way
-                    figure.move(Direction.DOWN);
-                    field.detectCollision(figure);
-                    updateGUI();
-                }
-            } catch (CollisionException e) {
-                figure.move(Direction.UP);
+            while (field.detectCollisionDirection(figure) != Direction.DOWN) {
+                figure.move(Direction.DOWN);
+                updateGUI();
             }
         }
     }
