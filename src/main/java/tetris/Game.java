@@ -1,7 +1,7 @@
 package tetris;
 
 import tetris.figures.*;
-import tetris.gui.ActionEvent;
+import tetris.gui.ActionHandler;
 import tetris.gui.GUI;
 
 import java.util.Random;
@@ -23,9 +23,7 @@ public class Game {
 
     public void start() {
         createFigure();
-        while(true) {
-            handleEvent(gui.waitEvent());
-        }
+        gui.setActionHandler(new FigureController());
     }
 
     private void createFigure() {
@@ -42,21 +40,46 @@ public class Game {
         gui.drawBlocks(this.figure.getBlocks());
     }
 
-    private void handleEvent(ActionEvent event) {
-        // TODO : add border collision
-        switch (event) {
-            case MOVE_LEFT: figure.move(Direction.LEFT); break;
-            case MOVE_RIGHT: figure.move(Direction.RIGHT); break;
-            case MOVE_DOWN: figure.move(Direction.DOWN); break;
-            case ROTATE_LEFT: figure.rotate(Direction.LEFT); break;
-            case ROTATE_RIGHT: figure.rotate(Direction.RIGHT); break;
-            default: break;
-        }
-        updateGUI();
-    }
-
     private void updateGUI() {
         gui.clear();
         gui.drawBlocks(this.figure.getBlocks());
+    }
+
+    private class FigureController implements ActionHandler {
+
+        @Override
+        public void moveDown() {
+            figure.move(Direction.DOWN);
+            updateGUI();
+        }
+
+        @Override
+        public void moveLeft() {
+            figure.move(Direction.LEFT);
+            updateGUI();
+        }
+
+        @Override
+        public void moveRight() {
+            figure.move(Direction.RIGHT);
+            updateGUI();
+        }
+
+        @Override
+        public void rotateLeft() {
+            figure.rotate(Direction.LEFT);
+            updateGUI();
+        }
+
+        @Override
+        public void rotateRight() {
+            figure.rotate(Direction.RIGHT);
+            updateGUI();
+        }
+
+        @Override
+        public void drop() {
+
+        }
     }
 }
