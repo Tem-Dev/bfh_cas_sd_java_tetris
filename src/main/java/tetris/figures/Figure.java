@@ -23,6 +23,7 @@ public abstract class Figure {
             case LEFT: for (Block b : blocks) b.x--; break;
             case RIGHT: for (Block b : blocks) b.x++; break;
             case DOWN: for (Block b : blocks) b.y--; break;
+            case UP: for (Block b : blocks) b.y++; break;
             default: break;
         }
     }
