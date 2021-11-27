@@ -15,6 +15,8 @@ public class Field {
     public void detectCollision(Figure figure) throws CollisionException {
         for (Block block : figure.getBlocks()) {
             if (block.x < 0 || block.x >= width || block.y < 0 || block.y >= height)
+                // uses exception handling in logic because the exercise made me implement it that way
+                // I suggest making this method return a bool and not moving out of border in the first place
                 throw new CollisionException("Detected collision with field border!");
         }
     }

@@ -11,14 +11,12 @@ public class Game {
     private Random random = new Random();
 
     private final GUI gui;
-    private final int width;
-    private final int height;
     private Figure figure;
+    private Field field;
 
-    public Game(GUI gui, int width, int height) {
+    public Game(int width, int height, GUI gui) {
+        this.field = new Field(width, height);
         this.gui = gui;
-        this.width = width;
-        this.height = height;
     }
 
     public void start() {
@@ -49,37 +47,71 @@ public class Game {
 
         @Override
         public void moveDown() {
-            figure.move(Direction.DOWN);
-            updateGUI();
+            try {
+                figure.move(Direction.DOWN);
+                field.detectCollision(figure);
+                updateGUI();
+            } catch (CollisionException e) {
+                figure.move(Direction.UP);
+            }
         }
 
         @Override
         public void moveLeft() {
-            figure.move(Direction.LEFT);
-            updateGUI();
+            try {
+                figure.move(Direction.LEFT);
+                field.detectCollision(figure);
+                updateGUI();
+            } catch (CollisionException e) {
+                figure.move(Direction.RIGHT);
+            }
         }
 
         @Override
         public void moveRight() {
-            figure.move(Direction.RIGHT);
-            updateGUI();
+            try {
+                figure.move(Direction.RIGHT);
+                field.detectCollision(figure);
+                updateGUI();
+            } catch (CollisionException e) {
+                figure.move(Direction.LEFT);
+            }
         }
 
         @Override
         public void rotateLeft() {
-            figure.rotate(Direction.LEFT);
-            updateGUI();
+            try {
+                figure.rotate(Direction.LEFT);
+                field.detectCollision(figure);
+                updateGUI();
+            } catch (CollisionException e) {
+                figure.rotate(Direction.RIGHT);
+            }
         }
 
         @Override
         public void rotateRight() {
-            figure.rotate(Direction.RIGHT);
-            updateGUI();
+            try {
+                figure.rotate(Direction.RIGHT);
+                field.detectCollision(figure);
+                updateGUI();
+            } catch (CollisionException e) {
+                figure.rotate(Direction.LEFT);
+            }
         }
 
         @Override
         public void drop() {
-
+            try {
+                while (true) {
+                    // uses exception handling in logic because the exercise made me implement it that way
+                    figure.move(Direction.DOWN);
+                    field.detectCollision(figure);
+                    updateGUI();
+                }
+            } catch (CollisionException e) {
+                figure.move(Direction.UP);
+            }
         }
     }
 }

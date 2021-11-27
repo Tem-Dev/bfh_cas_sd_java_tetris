@@ -19,7 +19,7 @@ public class Tetris {
         }
 
         GUI gui = new GUI(width, height);
-        Game game = new Game(gui, width, height);
+        Game game = new Game(width, height, gui);
         game.start();
     }
 
