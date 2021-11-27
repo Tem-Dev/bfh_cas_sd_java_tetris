@@ -1,6 +1,7 @@
 package tetris;
 
 import tetris.gui.GUI;
+import tetris.model.Game;
 
 public class Tetris {
 

@@ -1,6 +1,6 @@
-package tetris;
+package tetris.model;
 
-import tetris.figures.*;
+import tetris.model.figures.*;
 import tetris.gui.ActionHandler;
 import tetris.gui.Block;
 import tetris.gui.GUI;
@@ -9,11 +9,11 @@ import java.util.Random;
 
 public class Game {
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     private final GUI gui;
     private Figure figure;
-    private Field field;
+    private final Field field;
 
     public Game(int width, int height, GUI gui) {
         this.field = new Field(width, height);
@@ -37,6 +37,13 @@ public class Game {
             default: break;
         }
         gui.drawBlocks(this.figure.getBlocks());
+    }
+
+    // think of better method name
+    private void betweenTurns() {
+        landFigure(figure);
+        createFigure();
+        checkDoGameOver();
     }
 
     private void landFigure(Figure figure) {
@@ -63,14 +70,7 @@ public class Game {
     private void updateGUI() {
         gui.clear();
         if (figure != null) gui.drawBlocks(this.figure.getBlocks());
-        if (field != null) gui.drawBlocks(this.field.getBlockList());
-    }
-
-    // think of better method name
-    private void betweenTurns() {
-        landFigure(figure);
-        createFigure();
-        checkDoGameOver();
+        gui.drawBlocks(this.field.getBlockList());
     }
 
     private class FigureController implements ActionHandler {

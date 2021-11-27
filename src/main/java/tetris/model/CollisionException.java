@@ -1,4 +1,4 @@
-package tetris;
+package tetris.model;
 
 public class CollisionException extends Exception {
 

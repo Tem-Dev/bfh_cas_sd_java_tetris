@@ -1,6 +1,6 @@
-package tetris.figures;
+package tetris.model.figures;
 
-import tetris.Direction;
+import tetris.model.Direction;
 import tetris.Tetris;
 import tetris.gui.Block;
 
@@ -29,7 +29,6 @@ public abstract class Figure {
     }
 
     public void rotate(Direction direction)  {
-        // TODO : what if i rotate a block out of playfield or into other blocks?
         switch (direction) {
             case LEFT: for (Block block : this.getBlocks()) rotateBlockLeft(block); break;
             case RIGHT: for (Block block : this.getBlocks()) rotateBlockRight(block); break;

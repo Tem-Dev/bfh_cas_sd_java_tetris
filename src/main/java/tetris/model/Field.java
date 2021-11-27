@@ -1,6 +1,6 @@
-package tetris;
+package tetris.model;
 
-import tetris.figures.Figure;
+import tetris.model.figures.Figure;
 import tetris.gui.Block;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Field {
 
     private final int width, height;
-    private ArrayList<Block> blockList;
+    private final ArrayList<Block> blockList;
 
     public Field(int width, int height) {
         this.width = width;
