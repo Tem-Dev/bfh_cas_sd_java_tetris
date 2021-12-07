@@ -70,7 +70,7 @@ public class Game {
     private void updateGUI() {
         gui.clear();
         if (figure != null) gui.drawBlocks(this.figure.getBlocks());
-        gui.drawBlocks(this.field.getBlockList());
+        gui.drawBlocks(this.field.getBlocks());
     }
 
     private class FigureController implements ActionHandler {

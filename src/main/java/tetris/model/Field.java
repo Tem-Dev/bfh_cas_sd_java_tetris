@@ -47,7 +47,7 @@ public class Field {
         return null;
     }
 
-    public ArrayList<Block> getBlockList() {
+    public ArrayList<Block> getBlocks() {
         return blockList;
     }
 
