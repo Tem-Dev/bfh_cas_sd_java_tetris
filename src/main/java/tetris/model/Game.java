@@ -42,6 +42,7 @@ public class Game {
     // think of better method name
     private void betweenTurns() {
         landFigure(figure);
+        field.removeFullRows();
         createFigure();
         checkDoGameOver();
     }

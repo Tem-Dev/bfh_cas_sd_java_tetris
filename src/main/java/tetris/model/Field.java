@@ -59,6 +59,31 @@ public class Field {
         blockList.clear();
     }
 
+    public int removeFullRows() {
+        int removedCount = 0;
+        for (int y = 0; y < width; y++) {
+            if (isRowFull(y)) {
+                removeRow(y);
+                removedCount++;
+            }
+        }
+        return removedCount;
+    }
+
+    private boolean isRowFull(int row) {
+        int blockAmount = 0;
+        for (Block block : blockList) {
+            if (block.y == row) {
+                blockAmount++;
+            }
+        }
+        return blockAmount == width;
+    }
+
+    private void removeRow(int row) {
+        blockList.removeIf(block -> block.y == row);
+    }
+
     public int getWidth() {
         return width;
     }
