@@ -86,19 +86,11 @@ public class Field {
         while (iterator.hasNext()) {
             Block block = iterator.next();
             if (block.y == row) {
-//                blockList.remove(block);
                 iterator.remove(); // must be thru iterator, otherwise ConcurrentModificationException
             } else if (block.y > row) {
                 block.y--;
             }
         }
-//        for (Block block : blockList) {
-//            if (block.y == row) {
-//                blockList.remove(block);
-//            } else if (block.y > row) {
-//                block.y--;
-//            }
-//        }
     }
 
     public int getWidth() {
