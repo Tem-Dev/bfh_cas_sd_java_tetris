@@ -45,6 +45,7 @@ public class Game {
         field.removeFullRows();
         createFigure();
         checkDoGameOver();
+        updateGUI();
     }
 
     private void landFigure(Figure figure) {

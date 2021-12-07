@@ -1,10 +1,11 @@
 package tetris.model;
 
-import tetris.model.figures.Figure;
 import tetris.gui.Block;
+import tetris.model.figures.Figure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class Field {
 
@@ -61,7 +62,7 @@ public class Field {
 
     public int removeFullRows() {
         int removedCount = 0;
-        for (int y = 0; y < width; y++) {
+        for (int y = height; y >= 0; y--) {
             if (isRowFull(y)) {
                 removeRow(y);
                 removedCount++;
@@ -81,7 +82,23 @@ public class Field {
     }
 
     private void removeRow(int row) {
-        blockList.removeIf(block -> block.y == row);
+        Iterator<Block> iterator = blockList.iterator();
+        while (iterator.hasNext()) {
+            Block block = iterator.next();
+            if (block.y == row) {
+//                blockList.remove(block);
+                iterator.remove(); // must be thru iterator, otherwise ConcurrentModificationException
+            } else if (block.y > row) {
+                block.y--;
+            }
+        }
+//        for (Block block : blockList) {
+//            if (block.y == row) {
+//                blockList.remove(block);
+//            } else if (block.y > row) {
+//                block.y--;
+//            }
+//        }
     }
 
     public int getWidth() {
