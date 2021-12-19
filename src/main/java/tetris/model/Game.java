@@ -14,10 +14,12 @@ public class Game {
     private final GUI gui;
     private Figure figure;
     private final Field field;
+    private final Scoring scoring;
 
     public Game(int width, int height, GUI gui) {
-        this.field = new Field(width, height);
         this.gui = gui;
+        this.field = new Field(width, height);
+        this.scoring = new Scoring();
     }
 
     public void start() {
@@ -42,7 +44,8 @@ public class Game {
     // think of better method name
     private void betweenTurns() {
         landFigure(figure);
-        field.removeFullRows();
+        int removedRows = field.removeFullRows();
+        scoring.updateScore(removedRows);
         createFigure();
         checkDoGameOver();
         updateGUI();
@@ -64,8 +67,9 @@ public class Game {
     }
 
     private void stop() {
-        figure = null;
         gui.setActionHandler(null);
+        figure = null;
+        scoring.updateHighScore();
         updateGUI();
     }
 
@@ -73,6 +77,9 @@ public class Game {
         gui.clear();
         if (figure != null) gui.drawBlocks(this.figure.getBlocks());
         gui.drawBlocks(this.field.getBlocks());
+        gui.setLevel(scoring.getLevel());
+        gui.setScore(scoring.getScore());
+        gui.setHighScore(scoring.getHighScore());
     }
 
     private class FigureController implements ActionHandler {
