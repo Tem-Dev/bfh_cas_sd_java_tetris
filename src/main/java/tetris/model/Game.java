@@ -15,6 +15,7 @@ public class Game {
     private Figure figure;
     private final Field field;
     private final Scoring scoring;
+    private FigureController figureController;
 
     public Game(int width, int height, GUI gui) {
         this.gui = gui;
@@ -24,7 +25,9 @@ public class Game {
 
     public void start() {
         createFigure();
-        gui.setActionHandler(new FigureController());
+        figureController = new FigureController();
+        gui.setActionHandler(figureController);
+        figureController.start();
     }
 
     private void createFigure() {
@@ -68,6 +71,7 @@ public class Game {
 
     private void stop() {
         gui.setActionHandler(null);
+        figureController.interrupt();
         figure = null;
         scoring.updateHighScore();
         updateGUI();
@@ -82,10 +86,22 @@ public class Game {
         gui.setHighScore(scoring.getHighScore());
     }
 
-    private class FigureController implements ActionHandler {
+    private class FigureController extends Thread implements ActionHandler {
 
         @Override
-        public void moveDown() {
+        public void run() {
+            while (!Thread.interrupted()) {
+                try {
+                    Thread.sleep((long) (1000 * Math.exp(-0.1 * scoring.getLevel())));
+                    moveDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public synchronized void moveDown() {
             try {
                 figure.move(Direction.DOWN);
                 field.detectCollision(figure);
@@ -97,7 +113,7 @@ public class Game {
         }
 
         @Override
-        public void moveLeft() {
+        public synchronized void moveLeft() {
             try {
                 figure.move(Direction.LEFT);
                 field.detectCollision(figure);
@@ -108,7 +124,7 @@ public class Game {
         }
 
         @Override
-        public void moveRight() {
+        public synchronized void moveRight() {
             try {
                 figure.move(Direction.RIGHT);
                 field.detectCollision(figure);
@@ -119,7 +135,7 @@ public class Game {
         }
 
         @Override
-        public void rotateLeft() {
+        public synchronized void rotateLeft() {
             try {
                 figure.rotate(Direction.LEFT);
                 field.detectCollision(figure);
@@ -130,7 +146,7 @@ public class Game {
         }
 
         @Override
-        public void rotateRight() {
+        public synchronized void rotateRight() {
             try {
                 figure.rotate(Direction.RIGHT);
                 field.detectCollision(figure);
@@ -141,7 +157,7 @@ public class Game {
         }
 
         @Override
-        public void drop() {
+        public synchronized void drop() {
             try {
                 while (true) {
                     // uses exception handling in logic because the exercise made me implement it that way
