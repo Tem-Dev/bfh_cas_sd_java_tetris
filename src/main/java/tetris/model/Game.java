@@ -102,72 +102,46 @@ public class Game {
 
         @Override
         public synchronized void moveDown() {
-            try {
-                figure.move(Direction.DOWN);
-                field.detectCollision(figure);
-                updateGUI();
-            } catch (CollisionException e) {
-                figure.move(Direction.UP);
-                betweenTurns();
-            }
+            // TODO : throws exceptions when game ends because of moveDown
+            if (!doMovement(figure -> figure.move(Direction.DOWN), figure -> figure.move(Direction.UP))) betweenTurns();
         }
 
         @Override
         public synchronized void moveLeft() {
-            try {
-                figure.move(Direction.LEFT);
-                field.detectCollision(figure);
-                updateGUI();
-            } catch (CollisionException e) {
-                figure.move(Direction.RIGHT);
-            }
+            doMovement(figure -> figure.move(Direction.LEFT), figure -> figure.move(Direction.RIGHT));
         }
 
         @Override
         public synchronized void moveRight() {
-            try {
-                figure.move(Direction.RIGHT);
-                field.detectCollision(figure);
-                updateGUI();
-            } catch (CollisionException e) {
-                figure.move(Direction.LEFT);
-            }
+            doMovement(figure -> figure.move(Direction.RIGHT), figure -> figure.move(Direction.LEFT));
         }
 
         @Override
         public synchronized void rotateLeft() {
-            try {
-                figure.rotate(Direction.LEFT);
-                field.detectCollision(figure);
-                updateGUI();
-            } catch (CollisionException e) {
-                figure.rotate(Direction.RIGHT);
-            }
+            doMovement(figure -> figure.rotate(Direction.LEFT), figure -> figure.rotate(Direction.RIGHT));
         }
 
         @Override
         public synchronized void rotateRight() {
-            try {
-                figure.rotate(Direction.RIGHT);
-                field.detectCollision(figure);
-                updateGUI();
-            } catch (CollisionException e) {
-                figure.rotate(Direction.LEFT);
-            }
+            doMovement(figure -> figure.rotate(Direction.RIGHT), figure -> figure.rotate(Direction.LEFT));
         }
 
         @Override
         public synchronized void drop() {
+            // TODO : throws exceptions when game ends because of drop
+            while (doMovement(figure -> figure.move(Direction.DOWN), figure -> figure.move(Direction.UP))) {}
+            betweenTurns();
+        }
+
+        private boolean doMovement(Movement movement, Movement reverseMovement) {
             try {
-                while (true) {
-                    // uses exception handling in logic because the exercise made me implement it that way
-                    figure.move(Direction.DOWN);
-                    field.detectCollision(figure);
-                    updateGUI();
-                }
+                movement.make(figure);
+                field.detectCollision(figure);
+                updateGUI();
+                return true;
             } catch (CollisionException e) {
-                figure.move(Direction.UP);
-                betweenTurns();
+                reverseMovement.make(figure);
+                return false;
             }
         }
     }
